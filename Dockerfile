@@ -10,7 +10,9 @@ RUN \
   apt update && \
   apt install -y --allow-unauthenticated groonga-keyring && \
   apt update && \
-  apt install -y libarrow-glib-dev
+  apt install -y \
+    libarrow-glib-dev \
+    libgsl-dev
 
 RUN mkdir /app
 WORKDIR /app
