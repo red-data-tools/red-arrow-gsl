@@ -23,7 +23,7 @@ require "arrow-gsl"
 
 double_array.to_gsl # -> An object of GSL::Vector
 int32_array.to_gsl  # -> An object of GSL::Vector::Int
-tensor.to_tsl       # -> An object of GSL::Matrix or GSL::Matrix::Int
+tensor.to_gsl       # -> An object of GSL::Matrix or GSL::Matrix::Int
 
 gsl_vector.to_arrow     # -> An object of Arrow::DoubleArray
 gsl_int_vector.to_arrow # -> An object of Arrow::Int32Array
