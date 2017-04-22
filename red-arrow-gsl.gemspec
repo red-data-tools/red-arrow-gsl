@@ -19,11 +19,11 @@ clean_white_space = lambda do |entry|
 end
 
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), "lib"))
-require "arrow-numo-narray/version"
+require "arrow-gsl/version"
 
 Gem::Specification.new do |spec|
   spec.name = "red-arrow-gsl"
-  spec.version = ArrowNumoNArray::VERSION
+  spec.version = ArrowGSL::VERSION
   spec.homepage = "https://github.com/red-data-tools/red-arrow-gsl"
   spec.authors = ["Kouhei Sutou"]
   spec.email = ["kou@clear-code.com"]
