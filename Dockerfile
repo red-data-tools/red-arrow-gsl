@@ -7,6 +7,8 @@ RUN \
   apt install -y apt-transport-https && \
   echo "deb https://packages.groonga.org/debian/ jessie main" > \
     /etc/apt/sources.list.d/groonga.list && \
+  echo "deb http://ftp.debian.org/debian jessie-backports main" > \
+    /etc/apt/sources.list.d/backports.list && \
   apt update && \
   apt install -y --allow-unauthenticated groonga-keyring && \
   apt update && \
