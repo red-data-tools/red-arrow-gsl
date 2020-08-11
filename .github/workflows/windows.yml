@@ -35,10 +35,12 @@ jobs:
       - name: Update GCC
         run: |
           ridk exec pacman --sync --noconfirm mingw-w64-x86_64-gcc
-      - name: Install dependencies
+      - name: Install dependency MSYS2 packages
         run: |
           ridk exec pacman --sync --noconfirm mingw-w64-x86_64-gsl
+      - name: Install dependency gems
+        run: |
           bundle install
       - name: Test
         run: |
-          bundle exec rake
+          ridk exec bundle exec rake

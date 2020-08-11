@@ -12,13 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require "mkmf-gnome2"
+require "mkmf-gnome"
 
 required_pkg_config_package("arrow-glib")
 
 [
   ["glib2", "ext/glib2"],
-  ["gsl", "ext/gsl_native/include"],
+  ["gsl", "ext/gsl_native"],
 ].each do |name, source_dir|
   spec = find_gem_spec(name)
   source_dir = File.join(spec.full_gem_path, source_dir)

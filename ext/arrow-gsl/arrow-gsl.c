@@ -18,7 +18,7 @@
 
 #include <rbgobject.h>
 
-#include <rb_gsl.h>
+#include <include/rb_gsl.h>
 
 void Init_arrow_gsl(void);
 
