@@ -25,9 +25,11 @@ jobs:
           wget https://apache.bintray.com/arrow/$(lsb_release --id --short | tr 'A-Z' 'a-z')/apache-arrow-archive-keyring-latest-$(lsb_release --codename --short).deb
           sudo apt install -y -V ./apache-arrow-archive-keyring-latest-$(lsb_release --codename --short).deb
           sudo apt update
-      - name: Install dependencies
+      - name: Install dependency APT packages
         run: |
           sudo apt install -y libgsl-dev
+      - name: Install dependency gems
+        run: |
           bundle install
       - name: Test
         run: |
