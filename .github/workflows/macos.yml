@@ -1,0 +1,29 @@
+name: macOS
+on:
+  - push
+  - pull_request
+jobs:
+  test:
+    name: Ruby ${{ matrix.ruby-version }}
+    runs-on: macos-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby-version:
+          - "2.5"
+          - "2.6"
+          - "2.7"
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby-version }}
+      - name: Prepare the Apache Arrow APT repository
+        run: |
+          brew bundle
+      - name: Install dependencies
+        run: |
+          bundle install
+      - name: Test
+        run: |
+          bundle exec rake

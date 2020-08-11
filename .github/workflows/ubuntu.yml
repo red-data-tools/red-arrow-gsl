@@ -1,0 +1,34 @@
+name: Ubuntu
+on:
+  - push
+  - pull_request
+jobs:
+  test:
+    name: Ruby ${{ matrix.ruby-version }}
+    runs-on: ubuntu-20.04
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby-version:
+          - "2.5"
+          - "2.6"
+          - "2.7"
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby-version }}
+      - name: Prepare the Apache Arrow APT repository
+        run: |
+          sudo apt update
+          sudo apt install -y -V ca-certificates lsb-release wget
+          wget https://apache.bintray.com/arrow/$(lsb_release --id --short | tr 'A-Z' 'a-z')/apache-arrow-archive-keyring-latest-$(lsb_release --codename --short).deb
+          sudo apt install -y -V ./apache-arrow-archive-keyring-latest-$(lsb_release --codename --short).deb
+          sudo apt update
+      - name: Install dependencies
+        run: |
+          sudo apt install -y gsl-dev
+          bundle install
+      - name: Test
+        run: |
+          bundle exec rake
