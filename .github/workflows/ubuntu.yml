@@ -27,7 +27,7 @@ jobs:
           sudo apt update
       - name: Install dependencies
         run: |
-          sudo apt install -y gsl-dev
+          sudo apt install -y libgsl-dev
           bundle install
       - name: Test
         run: |
