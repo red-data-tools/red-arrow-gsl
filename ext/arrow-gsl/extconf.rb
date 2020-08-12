@@ -26,4 +26,6 @@ required_pkg_config_package("arrow-glib")
   add_depend_package_path(name, source_dir, build_dir)
 end
 
+have_library("gsl") or exit(false)
+
 create_makefile("arrow_gsl")
