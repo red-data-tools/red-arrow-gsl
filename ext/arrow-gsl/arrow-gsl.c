@@ -20,6 +20,9 @@
 
 #include <include/rb_gsl.h>
 
+static VALUE rb_GSLMatrix;
+static VALUE rb_GSLMatrixInt;
+
 void Init_arrow_gsl(void);
 
 static VALUE
@@ -82,7 +85,7 @@ rb_arrow_tensor_to_gsl(VALUE self)
     g_bytes_unref(data);
     g_object_unref(buffer);
 
-    rb_matrix = Data_Wrap_Struct(cgsl_matrix_int,
+    rb_matrix = Data_Wrap_Struct(rb_GSLMatrixInt,
                                  NULL,
                                  gsl_matrix_int_free,
                                  matrix);
@@ -101,7 +104,7 @@ rb_arrow_tensor_to_gsl(VALUE self)
     g_bytes_unref(data);
     g_object_unref(buffer);
 
-    rb_matrix = Data_Wrap_Struct(cgsl_matrix,
+    rb_matrix = Data_Wrap_Struct(rb_GSLMatrix,
                                  NULL,
                                  gsl_matrix_free,
                                  matrix);
@@ -207,15 +210,21 @@ Init_arrow_gsl(void)
   rb_define_method(rb_ArrowTensor, "to_gsl",
                    rb_arrow_tensor_to_gsl, 0);
 
-  /*
-  rb_define_method(cgsl_vector_int, "to_arrow",
-                   rb_gsl_vector_int_to_arrow, 0);
-  rb_define_method(cgsl_vector, "to_arrow",
-                   rb_gsl_vector_to_arrow, 0);
-  */
+  {
+    VALUE rb_GSL = rb_const_get(rb_cObject, rb_intern("GSL"));
 
-  rb_define_method(cgsl_matrix_int, "to_arrow",
-                   rb_gsl_matrix_int_to_arrow, 0);
-  rb_define_method(cgsl_matrix, "to_arrow",
-                   rb_gsl_matrix_to_arrow, 0);
+    /*
+    rb_define_method(cgsl_vector_int, "to_arrow",
+                     rb_gsl_vector_int_to_arrow, 0);
+    rb_define_method(cgsl_vector, "to_arrow",
+                     rb_gsl_vector_to_arrow, 0);
+    */
+
+    rb_GSLMatrix = rb_const_get(rb_GSL, rb_intern("Matrix"));
+    rb_GSLMatrixInt = rb_const_get(rb_GSLMatrix, rb_intern("Int"));
+    rb_define_method(rb_GSLMatrixInt, "to_arrow",
+                     rb_gsl_matrix_int_to_arrow, 0);
+    rb_define_method(rb_GSLMatrix, "to_arrow",
+                     rb_gsl_matrix_to_arrow, 0);
+  }
 }
