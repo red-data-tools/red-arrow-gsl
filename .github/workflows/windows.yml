@@ -41,6 +41,12 @@ jobs:
       - name: Install dependency gems
         run: |
           bundle install
+      - name: Build gem
+        run: |
+          bundle exec rake build
+      - name: Install gem
+        run: |
+          gem install pkg\*.gem
       - name: Test
         run: |
-          ridk exec bundle exec rake
+          ruby test/run-test.rb
