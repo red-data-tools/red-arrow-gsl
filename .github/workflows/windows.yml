@@ -18,16 +18,16 @@ jobs:
       - uses: MSP-Greg/setup-ruby-pkgs@v1
         with:
           ruby-version: ${{ matrix.ruby-version }}
-          mingw: _upgrade_ gcc gsl
+          mingw: _upgrade_ gsl
       - name: Install dependency gems
         run: |
-          bundle install
+          ridk exec bundle install
       - name: Build gem
         run: |
-          bundle exec rake build
+          ridk exec bundle exec rake build
       - name: Install gem
         run: |
-          gem install pkg\*.gem
+          ridk exec gem install pkg\*.gem
       - name: Test
         run: |
-          ruby test/run-test.rb
+          ridk exec ruby test/run-test.rb
