@@ -52,4 +52,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency("rake-compiler")
   spec.add_development_dependency("packnga")
   spec.add_development_dependency("kramdown")
+
+  spec.metadata["msys2_mingw_dependencies"] = "gsl"
 end
